@@ -37,3 +37,6 @@ component-test/*.xml
 ######################
 *.log
 *.sqlite
+
+
+/target
