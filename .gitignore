@@ -1,0 +1,39 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+# Automated tests results #
+###########################
+component-test/robot-reports/*
+component-test/robot-files/*/.html
+component-test/robot-files/*/.xml
+component-test/*.html
+component-test/*.xml
+
+# Logs and databases #
+######################
+*.log
+*.sqlite
