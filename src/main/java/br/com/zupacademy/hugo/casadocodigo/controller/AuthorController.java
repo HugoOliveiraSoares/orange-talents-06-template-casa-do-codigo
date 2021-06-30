@@ -50,7 +50,7 @@ public class AuthorController {
 //        }
 //        return ResponseEntity.badRequest().body("Email Duplicado");
 
-        Author author = authorFORM.convert(authorFORM);
+        Author author = authorFORM.convert();
         authorRepository.save(author);
 
         URI uri = uriComponentsBuilder.path("author/{id}").buildAndExpand(author.getId()).toUri();

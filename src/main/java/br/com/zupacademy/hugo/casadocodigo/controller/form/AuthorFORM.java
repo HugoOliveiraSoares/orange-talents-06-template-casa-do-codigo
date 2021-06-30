@@ -16,7 +16,7 @@ public class AuthorFORM {
     @NotNull @NotEmpty @Size(max = 400)
     private String description;
 
-    public Author convert(AuthorFORM authorFORM) {
+    public Author convert() {
         return new Author(this.name, this.email, this.description);
     }
 
