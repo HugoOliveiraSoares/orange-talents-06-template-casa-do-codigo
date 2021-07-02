@@ -4,12 +4,10 @@ import br.com.zupacademy.hugo.casadocodigo.controller.dto.CategoryDTO;
 import br.com.zupacademy.hugo.casadocodigo.controller.form.CategoryFORM;
 import br.com.zupacademy.hugo.casadocodigo.model.Category;
 import br.com.zupacademy.hugo.casadocodigo.repository.CategoryRepository;
-import br.com.zupacademy.hugo.casadocodigo.vallidator.UniqueCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
@@ -19,14 +17,6 @@ public class CategoryController {
 
     @Autowired
     private CategoryRepository categoryRepository;
-
-    @Autowired
-    private UniqueCategory uniqueCategory;
-
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(uniqueCategory);
-    }
 
     @GetMapping
     public Page<CategoryDTO> list(Pageable pages){

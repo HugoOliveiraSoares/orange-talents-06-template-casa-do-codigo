@@ -1,6 +1,8 @@
 package br.com.zupacademy.hugo.casadocodigo.controller.form;
 
 import br.com.zupacademy.hugo.casadocodigo.model.Author;
+import br.com.zupacademy.hugo.casadocodigo.validator.Unique;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -11,7 +13,7 @@ public class AuthorFORM {
     @NotNull
     @NotEmpty
     private String name;
-    @NotNull @NotEmpty @Email
+    @NotNull @NotEmpty @Email @Unique(domainClass = Author.class, fieldName = "email", message = "Email já utilizado")
     private String email;
     @NotNull @NotEmpty @Size(max = 400)
     private String description;
