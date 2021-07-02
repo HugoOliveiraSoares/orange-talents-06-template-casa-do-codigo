@@ -1,4 +1,4 @@
-package br.com.zupacademy.hugo.casadocodigo.vallidator;
+package br.com.zupacademy.hugo.casadocodigo.validator;
 
 import br.com.zupacademy.hugo.casadocodigo.controller.form.CategoryFORM;
 import br.com.zupacademy.hugo.casadocodigo.model.Category;
