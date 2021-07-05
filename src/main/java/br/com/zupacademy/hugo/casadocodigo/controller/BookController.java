@@ -27,7 +27,7 @@ public class BookController {
     private AuthorRepository authorRepository;
 
     @GetMapping
-    public Page<BookDTO> list(Pageable pages){
+    public Page<BookDTO> listAll(Pageable pages){
 
         Page<Book> books = bookRepository.findAll(pages);
 
