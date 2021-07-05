@@ -3,11 +3,9 @@ package br.com.zupacademy.hugo.casadocodigo.model;
 import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -20,24 +18,24 @@ public class Book {
     @NotNull @NotEmpty @Length(max = 500)
     private String description;
     private String summary;
-    @NotNull @DecimalMin("20")
-    private int price;
-    @NotNull @DecimalMin("100")
+    @NotNull @Min(20)
+    private float price;
+    @NotNull @Min(100)
     private int numberPages;
     @NotNull @NotEmpty
     private String isbn;
     @NotNull @Future
     private LocalDate releaseDate;
-    @NotNull @OneToOne
-    private Category category;
-    @NotNull @OneToOne
+    @NotNull @OneToMany
+    private List<Category> category;
+    @NotNull @OneToOne @Valid
     private Author author;
 
     @Deprecated
     public Book() {
     }
 
-    public Book(@Valid String title, String description, String summary, int price, int numberPages, String isbn, LocalDate releaseDate, Category category, Author author) {
+    public Book(@Valid String title, String description, String summary, float price, int numberPages, String isbn, LocalDate releaseDate, List<Category> category, Author author) {
         this.title = title;
         this.description = description;
         this.summary = summary;
@@ -65,7 +63,7 @@ public class Book {
         return summary;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -81,7 +79,7 @@ public class Book {
         return releaseDate;
     }
 
-    public Category getCategory() {
+    public List<Category> getCategory() {
         return category;
     }
 

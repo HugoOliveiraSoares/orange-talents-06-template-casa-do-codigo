@@ -6,16 +6,12 @@ import br.com.zupacademy.hugo.casadocodigo.model.Category;
 import br.com.zupacademy.hugo.casadocodigo.repository.AuthorRepository;
 import br.com.zupacademy.hugo.casadocodigo.repository.CategoryRepository;
 import br.com.zupacademy.hugo.casadocodigo.validator.Unique;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
-
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookFORM {
 
@@ -25,26 +21,31 @@ public class BookFORM {
     @NotNull @NotEmpty @Length(max = 500)
     private String description;
     private String summary;
-    @NotNull @DecimalMin("20")
-    private int price;
-    @NotNull @DecimalMin("100")
+    @NotNull @Min(20)
+    private float price;
+    @NotNull @Min(100)
     private int numberPages;
     @NotNull @NotEmpty @Unique(domainClass = Book.class, fieldName = "isbn", message = "ISBN já cadastrado!")
     private String isbn;
-    @NotNull @Future
+    @NotNull @Future @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate releaseDate;
     @NotNull @NotEmpty
-    private String nameCategory;
+    private List<String> nameCategory;
     @NotNull @NotEmpty
     private String nameAuthor;
 
 
     public Book convert(CategoryRepository categoryRepository, AuthorRepository authorRepository) {
 
-        Category category = categoryRepository.findByName(this.nameCategory);
+        List<Category> categories = new ArrayList<>();
+
+        for (String category: nameCategory) {
+            categories.add( categoryRepository.findByName(category) );
+        }
+
         Author author = authorRepository.findByName(this.nameAuthor);
 
-        return new Book(this.title, this.description, this.summary, this.price, this.numberPages, this.isbn, this.releaseDate, category, author);
+        return new Book(this.title, this.description, this.summary, this.price, this.numberPages, this.isbn, this.releaseDate, categories, author);
 
     }
 
@@ -72,7 +73,7 @@ public class BookFORM {
         this.summary = summary;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -104,11 +105,11 @@ public class BookFORM {
         this.releaseDate = releaseDate;
     }
 
-    public String getNameCategory() {
+    public List<String> getNameCategory() {
         return nameCategory;
     }
 
-    public void setNameCategory(String nameCategory) {
+    public void setNameCategory(List<String> nameCategory) {
         this.nameCategory = nameCategory;
     }
 

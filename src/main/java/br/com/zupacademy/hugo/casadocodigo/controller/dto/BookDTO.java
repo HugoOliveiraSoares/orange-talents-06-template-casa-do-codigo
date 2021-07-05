@@ -4,18 +4,21 @@ import br.com.zupacademy.hugo.casadocodigo.model.Author;
 import br.com.zupacademy.hugo.casadocodigo.model.Book;
 import br.com.zupacademy.hugo.casadocodigo.model.Category;
 import org.springframework.data.domain.Page;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 public class BookDTO {
 
     private String title;
     private String description;
     private String summary;
-    private int price;
+    private float price;
     private int numberPages;
     private String isbn;
     private LocalDate releaseDate;
-    private Category categories;
+    private List<Category> categories;
     private Author author;
 
     public BookDTO(Book book) {
@@ -46,7 +49,7 @@ public class BookDTO {
         return summary;
     }
 
-    public int getPrice() {
+    public @NotNull @Min(20) float getPrice() {
         return price;
     }
 
@@ -62,7 +65,7 @@ public class BookDTO {
         return releaseDate;
     }
 
-    public Category getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
